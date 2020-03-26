@@ -237,6 +237,11 @@ class _ChangeLogViewState extends State<ChangeLogView> {
     if (_changelog == null) {
       return CircularProgressIndicator();
     }
-    return Markdown(data: _changelog);
+    return Markdown(
+      data: _changelog,
+      styleSheet: MarkdownStyleSheet(
+        h1: Theme.of(context).textTheme.title,
+      ),
+    );
   }
 }
