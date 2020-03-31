@@ -188,15 +188,6 @@ class WhatsNewPage extends StatelessWidget {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: title,
-        automaticallyImplyMiddle: false,
-        trailing: CupertinoButton(
-          child: buttonText,
-          onPressed: onButtonPressed != null
-              ? onButtonPressed
-              : () {
-                  Navigator.pop(context);
-                },
-        ),
       ),
       child: SafeArea(
         child: child,
@@ -235,13 +226,12 @@ class _ChangeLogViewState extends State<ChangeLogView> {
   @override
   Widget build(BuildContext context) {
     if (_changelog == null) {
-      return CircularProgressIndicator();
+      if (Platform.isIOS) {
+        return Center(child: CupertinoActivityIndicator());
+      } else {
+        return Center(child: CircularProgressIndicator());
+      }
     }
-    return Markdown(
-      data: _changelog,
-      styleSheet: MarkdownStyleSheet(
-        h1: Theme.of(context).textTheme.title,
-      ),
-    );
+    return Markdown(data: _changelog);
   }
 }
