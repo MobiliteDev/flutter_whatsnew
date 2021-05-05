@@ -19,7 +19,7 @@ void main() {
 /// a supported platform (iOS for macOS, Android for Linux and Windows).
 /// Otherwise, do nothing.
 void _setTargetPlatformForDesktop() {
-  TargetPlatform targetPlatform;
+  TargetPlatform? targetPlatform;
   if (Platform.isMacOS) {
     targetPlatform = TargetPlatform.iOS;
   } else if (Platform.isLinux || Platform.isWindows) {
@@ -44,8 +44,8 @@ class MyApp extends StatelessWidget {
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
-    Key key,
-    @required this.textScaleFactor,
+    Key? key,
+    required this.textScaleFactor,
   }) : super(key: key);
 
   final double textScaleFactor;
@@ -59,7 +59,7 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              RaisedButton(
+              ElevatedButton(
                 child: Text("Show Changelog"),
                 onPressed: () {
                   Navigator.push(
@@ -88,7 +88,7 @@ class HomeScreen extends StatelessWidget {
                 },
               ),
               Container(height: 50.0),
-              RaisedButton(
+              ElevatedButton(
                 child: Text("Show Changes"),
                 onPressed: () {
                   Navigator.push(
@@ -125,7 +125,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             onTap: () {
                               // You Can Navigate to Locations in the App
-                              Navigator.of(context).pushNamed("/settings");
+                              //Navigator.of(context).pushNamed("/settings");
                             },
                           ),
                           ListTile(
@@ -140,7 +140,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             onTap: () {
                               // You Can Navigate to Locations in the App
-                              Navigator.of(context).pushNamed("/settings");
+                              //Navigator.of(context).pushNamed("/settings");
                             },
                           ),
                           ListTile(

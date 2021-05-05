@@ -12,17 +12,17 @@ class WhatsNewPage extends StatelessWidget {
   final Widget title;
   final Widget buttonText;
   final List<ListTile> items;
-  final VoidCallback onButtonPressed;
+  final VoidCallback? onButtonPressed;
   final bool changelog;
-  final String changes;
-  final Color backgroundColor;
-  final Color buttonColor;
-  final String path;
+  final String? changes;
+  final Color? backgroundColor;
+  final Color? buttonColor;
+  final String? path;
 
   const WhatsNewPage({
-    @required this.items,
-    @required this.title,
-    @required this.buttonText,
+    required this.items,
+    required this.title,
+    required this.buttonText,
     this.onButtonPressed,
     this.backgroundColor,
     this.buttonColor,
@@ -31,19 +31,22 @@ class WhatsNewPage extends StatelessWidget {
         path = null;
 
   const WhatsNewPage.changelog({
-    @required this.title,
-    @required this.buttonText,
+    required this.title,
+    required this.buttonText,
     this.onButtonPressed,
     this.changes,
     this.backgroundColor,
     this.buttonColor,
     this.path,
   })  : changelog = true,
-        items = null;
+        items = const <ListTile>[];
 
   static void showDetailPopUp(
       BuildContext context, String title, String detail) async {
-    void showDemoDialog<T>({BuildContext context, Widget child}) {
+    void showDemoDialog<T>({
+      required BuildContext context,
+      required Widget child,
+    }) {
       showDialog<T>(
         context: context,
         barrierDismissible: false,
@@ -57,7 +60,7 @@ class WhatsNewPage extends StatelessWidget {
         title: Text(title),
         content: Text(detail),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             child: Text('OK'),
             onPressed: () {
               Navigator.pop(context);
@@ -105,9 +108,9 @@ class WhatsNewPage extends StatelessWidget {
                 right: 10.0,
                 left: 10.0,
                 child: ListTile(
-                  title: RaisedButton(
+                  title: ElevatedButton(
                     child: buttonText,
-                    color: buttonColor ?? Colors.blue,
+                    //color: buttonColor ?? Colors.blue,
                     onPressed: onButtonPressed != null
                         ? onButtonPressed
                         : () {
@@ -159,9 +162,9 @@ class WhatsNewPage extends StatelessWidget {
               right: 10.0,
               left: 10.0,
               child: ListTile(
-                title: RaisedButton(
+                title: ElevatedButton(
                   child: buttonText,
-                  color: buttonColor ?? Colors.blue,
+                  //color: buttonColor ?? Colors.blue,
                   onPressed: onButtonPressed != null
                       ? onButtonPressed
                       : () => Navigator.pop(context),
@@ -197,20 +200,23 @@ class WhatsNewPage extends StatelessWidget {
 }
 
 class ChangeLogView extends StatefulWidget {
-  const ChangeLogView({this.changes, this.path});
-  final String changes;
-  final String path;
+  const ChangeLogView({
+    this.changes,
+    this.path,
+  });
+  final String? changes;
+  final String? path;
   @override
   _ChangeLogViewState createState() => _ChangeLogViewState();
 }
 
 class _ChangeLogViewState extends State<ChangeLogView> {
-  String _changelog;
+  String? _changelog;
 
   @override
   void initState() {
-    if (widget?.changes == null) {
-      rootBundle.loadString(widget?.path ?? "CHANGELOG.md").then((data) {
+    if (widget.changes == null) {
+      rootBundle.loadString(widget.path ?? "CHANGELOG.md").then((data) {
         setState(() {
           _changelog = data;
         });
@@ -232,6 +238,6 @@ class _ChangeLogViewState extends State<ChangeLogView> {
         return Center(child: CircularProgressIndicator());
       }
     }
-    return Markdown(data: _changelog);
+    return Markdown(data: _changelog ?? '');
   }
 }
