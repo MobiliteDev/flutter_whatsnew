@@ -1,3 +1,5 @@
+## 1.0.4
+Migration null safety
 ## 1.0.3
 
 * Adding Web Support
